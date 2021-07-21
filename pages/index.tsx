@@ -5,6 +5,9 @@ import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
 import Date from '../components/date';
 import { GetStaticProps } from 'next';
+// Redux
+import { decrement, increment } from '../store/slices/counterSlice';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 export default function Home({
   allPostsData,
@@ -15,6 +18,9 @@ export default function Home({
     id: string;
   }[];
 }) {
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
+
   return (
     <Layout home>
       <Head>
@@ -43,6 +49,23 @@ export default function Home({
           ))}
         </ul>
       </section>
+      <div>
+        <div>
+          <button
+            aria-label="Increment value"
+            onClick={() => dispatch(increment())}
+          >
+            Increment
+          </button>
+          <span>{count}</span>
+          <button
+            aria-label="Decrement value"
+            onClick={() => dispatch(decrement())}
+          >
+            Decrement
+          </button>
+        </div>
+      </div>
     </Layout>
   );
 }
