@@ -1,5 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
+export function* watchCounters() {
+  yield takeLatest(increment.type, incrementSaga); // 모든 INCREMENT_ASYNC 액션을 처리
+  yield takeEvery(decrement.type, decrementSaga); // 가장 마지막으로 디스패치된 DECREMENT_ASYNC 액션만을 처리
+}
+
+// helper
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// redux-saga
+function* incrementSaga() {
+  console.log('incremented');
+  yield delay(100); // 1초를 기다립니다.
+  yield put(incrementCancel());
+  console.log('incrementedCanceled');
+}
+function* decrementSaga() {
+  console.log('decremented');
+  yield delay(1000); // 1초를 기다립니다.
+}
+
+// redux-toolkit
 export interface CounterState {
   value: number;
 }
@@ -13,22 +35,17 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
       state.value += 1;
+    },
+    incrementCancel: (state) => {
+      state.value -= 1;
     },
     decrement: (state) => {
       state.value -= 1;
     },
-    incrementByAmount: (state, { payload }: PayloadAction<number>) => {
-      state.value += payload;
-    },
   },
 });
-
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { increment, decrement, incrementCancel } = counterSlice.actions;
 
 export default counterSlice.reducer;

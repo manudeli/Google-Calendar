@@ -1,3 +1,8 @@
-import counterReducer from './counterSlice';
+import { all } from 'redux-saga/effects';
+import counterReducer, { watchCounters } from './counterSlice';
 
-export { counterReducer };
+function* rootSaga() {
+  yield all([watchCounters()]);
+}
+
+export { rootSaga, counterReducer };
