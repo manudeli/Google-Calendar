@@ -11,7 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
-import { rootSaga, counterReducer } from './slices';
+import { rootSaga, userReducer } from '../features';
 import createSagaMiddleware from 'redux-saga';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -20,13 +20,11 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  blacklist: [
-    // 'counter'
-  ],
+  // blacklist: ['counter'],
 };
 
 const rootReducer = combineReducers({
-  counter: counterReducer,
+  user: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

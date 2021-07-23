@@ -112,15 +112,24 @@ export interface ICalendar {
   id: CalendarId;
   title: string;
   owner: UserId;
-  permissionUsers: { [userId: UserId]: EnumCalenderPermission };
+  permissionUsers: { [userId: UserId]: EnumCalendarPermission };
   access: { [userId: UserId]: { isAccepted: boolean; expiredAt: Date } };
   eventIds: {};
   events: IEvent[];
 }
 
-export enum EnumCalenderPermission {
+export enum EnumCalendarPermission {
   'see only',
   'see all',
   'make changes to events',
   'make changes and manage sharing',
+}
+
+export interface ICalendarState {
+  myCalendars: {
+    [calendarId: CalendarId]: { isDisplay: boolean };
+  };
+  invitedEvents: {
+    [eventId: EventId]: { isDisplay: boolean };
+  };
 }
