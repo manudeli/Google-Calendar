@@ -1,12 +1,7 @@
 import { IUserProfile } from './../../models/users';
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { db } from '../../utils/firebase';
-import {
-  getAllUserProfiles,
-  login,
-  setAllUserProfiles,
-  setLoading,
-} from './slice';
+import { getAllUserProfiles, login, successAllUserProfiles } from './slice';
 
 export function* watchUsers() {
   yield takeLatest(getAllUserProfiles.type, getAllUserProfilesSaga);
@@ -14,20 +9,23 @@ export function* watchUsers() {
 }
 
 // redux-saga
-export function* getAllUserProfilesSaga() {
-  yield put(setLoading(true));
-  const newAllUserProfiles = [] as IUserProfile[];
+function* getAllUserProfilesSaga() {
   try {
-    const { docs } = yield call(() => db.collection('users').get());
-    docs.forEach((doc) =>
-      newAllUserProfiles.push({ id: doc.id, ...doc.data() } as IUserProfile)
+    const { docs } = yield call(() =>
+      db.collection('users').orderBy('order', 'asc').get()
     );
+    const newAllUserProfiles = [] as IUserProfile[];
+    docs.forEach((doc) => {
+      const newUserProfile = { id: doc.id, ...doc.data() };
+      delete newUserProfile.order;
+      newAllUserProfiles.push(newUserProfile);
+    });
+    yield put(successAllUserProfiles(newAllUserProfiles));
   } catch (error) {
     console.log(error);
   }
-  yield put(setAllUserProfiles(newAllUserProfiles));
-  yield put(setLoading(false));
 }
+
 function* loginSaga() {
   yield put(login());
 }

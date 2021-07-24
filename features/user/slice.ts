@@ -18,13 +18,15 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setLoading: (state, { payload }: PayloadAction<boolean>) => {
-      state.isLoading = payload;
-    },
     getAllUserProfiles: (state) => {
+      state.isLoading = true;
       state.profiles = [];
     },
-    setAllUserProfiles: (state, { payload }: PayloadAction<IUserProfile[]>) => {
+    successAllUserProfiles: (
+      state,
+      { payload }: PayloadAction<IUserProfile[]>
+    ) => {
+      state.isLoading = false;
       state.profiles = payload;
     },
     logout: (state) => {
@@ -34,12 +36,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const {
-  setLoading,
-  getAllUserProfiles,
-  setAllUserProfiles,
-  logout,
-  login,
-} = userSlice.actions;
+export const { getAllUserProfiles, successAllUserProfiles, logout, login } =
+  userSlice.actions;
 
 export default userSlice.reducer;
