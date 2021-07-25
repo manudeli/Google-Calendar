@@ -1,27 +1,13 @@
-import { CalendarId, EventId } from './calendars';
+import { ImageUrl, UserId, UserName } from './types';
 
-export type UserId = string;
-export type UserName = string;
-
-export interface IUser {
-  id: UserId;
+export interface IUserDB {
   email: string;
   username: string;
-  calendars: {
-    [calendarId: CalendarId]: { isDisplay: boolean };
-  };
-  invitedEvents: {
-    [eventId: EventId]: { isDisplay: boolean };
-  };
+  imageUrl: ImageUrl;
 }
 
-export interface IUserState {
-  isLoading: boolean;
-  profiles: IUserProfile[];
-  profile: IUserProfile;
-}
-
-export interface IUserProfile {
+// View
+export interface ProfileProps {
   id: UserId;
   email: string;
   username: UserName;
