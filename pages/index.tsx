@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { useEffect } from 'react';
 import { getAllUserProfiles } from '../features/user/slice';
 
-export default function Home() {
+export default function LoginPage() {
   const userProfiles = useAppSelector((state) => state.user.profiles);
   const dispatch = useAppDispatch();
   useEffect(() => {
