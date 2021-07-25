@@ -1,6 +1,6 @@
-import { IUserProfile } from '../../models/users';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUserState } from '../../models/users';
+import { IUserState } from '../../models/redux';
+import { ProfileProps } from './../../models/users';
 
 // redux-toolkit
 const initialState: IUserState = {
@@ -24,7 +24,7 @@ export const userSlice = createSlice({
     },
     successAllUserProfiles: (
       state,
-      { payload }: PayloadAction<IUserProfile[]>
+      { payload }: PayloadAction<ProfileProps[]>
     ) => {
       state.isLoading = false;
       state.profiles = payload;
@@ -32,7 +32,9 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.profile = initialState.profile;
     },
-    login: (state) => {},
+    login: (state, { payload }) => {
+      state.profile = payload;
+    },
   },
 });
 

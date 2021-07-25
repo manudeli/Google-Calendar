@@ -11,10 +11,11 @@ export const Layout = ({ children }: Props) => {
 
   return (
     <div>
-      <header>
-        <TopNavigation>Header</TopNavigation>
-      </header>
-
+      {isLoggedIn && (
+        <header>
+          <TopNavigation>Header</TopNavigation>
+        </header>
+      )}
       <div>{children}</div>
     </div>
   );
