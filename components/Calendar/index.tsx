@@ -11,9 +11,6 @@ export const Calendar = () => {
     getNextMonth,
   } = useCalendar();
 
-  const [selectedStart, setSelectedStart] = useState<null | Date>(null);
-  const [selectedEnd, setSelectedEnd] = useState<null | Date>(null);
-
   return (
     <div>
       <div>

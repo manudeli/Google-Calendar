@@ -4,8 +4,12 @@ import { ColorType, PermissionType, UserId } from './types';
 export interface ICalendarDB {
   title: string;
   owner: UserId;
-  permissionUsers: { [userId: UserId]: PermissionType };
-  access: { [userId: UserId]: { isAccepted: boolean; expiredAt: Date } };
+  access: {
+    [userId: UserId]: {
+      isAccepted: boolean;
+      permissionType: PermissionType;
+    };
+  };
   color: ColorType;
 }
 

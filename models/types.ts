@@ -15,7 +15,7 @@ export enum RepeatType {
   'custom',
 }
 
-export enum RepeatCustomEndType {
+export enum RepeatCustomEndsType {
   'never',
   'on',
   'after',

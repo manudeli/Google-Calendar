@@ -25,9 +25,9 @@ const monthNamesArr = [
   '12월',
 ];
 
+const today = new Date();
 const rows = 6;
 const cols = 7;
-const today = new Date();
 
 const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
   const [selectedDate, setSelectedDate] = useState(today);
@@ -38,10 +38,8 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
     1
   ).getDay();
 
-  let startingPoint = daysShortArr.filter(d => d.value === firstDayInMonth)[0]
+  let startingPoint = daysShortArr.filter((d) => d.value === firstDayInMonth)[0]
     .value;
-
-  console.log(startingPoint);
 
   const prevMonthLastDate = new Date(
     selectedDate.getFullYear(),
@@ -95,19 +93,15 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
     }
   }
 
-  console.log(calendars);
-
   const getPrevMonth = (): void => {
     setSelectedDate(
-      prevValue =>
-        new Date(prevValue.getFullYear(), prevValue.getMonth() - 1, 1)
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
     );
   };
 
   const getNextMonth = (): void => {
     setSelectedDate(
-      prevValue =>
-        new Date(prevValue.getFullYear(), prevValue.getMonth() + 1, 1)
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
     );
   };
 

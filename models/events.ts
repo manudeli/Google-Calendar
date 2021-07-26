@@ -4,7 +4,7 @@ import {
   Date,
   IsAcceptedType,
   IsGoingType,
-  RepeatCustomEndType,
+  RepeatCustomEndsType,
   RepeatExceptedType,
   RepeatType,
   RepeatUnitType,
@@ -44,13 +44,28 @@ export interface IEventDB extends EventDetail {
       };
     };
 
-    // If repeat.type is "custom"
+    // if RepeatType is "custom"
     custom: {
-      times: number;
-      unit: RepeatUnitType;
-      end: {
-        type: RepeatCustomEndType;
+      repeatEvery: {
+        times: number;
+        unit: RepeatUnitType;
+        // if RepeatUnitType is "week"
+        repeatOnWeek: {
+          sun: boolean;
+          mon: boolean;
+          tue: boolean;
+          wed: boolean;
+          thu: boolean;
+          fri: boolean;
+          sat: boolean;
+        };
+      };
+
+      ends: {
+        type: RepeatCustomEndsType;
+        // if RepeatCustomEndsType is "on"
         on: Date;
+        // if RepeatCustomEndsType is "after"
         After: { times: number };
       };
     };
