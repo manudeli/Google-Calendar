@@ -25,7 +25,7 @@ export interface IEventDB extends EventDetail {
   creator: UserId;
   sourceCalendar: CalendarId;
   guests: {
-    [userId: UserId]: {
+    [userId: string]: {
       isGoing: IsGoingType;
       isRequired: boolean;
       permission: {
@@ -38,7 +38,7 @@ export interface IEventDB extends EventDetail {
   repeat: {
     type: RepeatType;
     excepted: {
-      [date: Date]: {
+      [date: number]: {
         type: RepeatExceptedType;
         detail: EventDetail;
       };

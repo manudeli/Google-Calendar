@@ -5,7 +5,7 @@ export interface ICalendarDB {
   title: string;
   owner: UserId;
   access: {
-    [userId: UserId]: {
+    [userId: string]: {
       isAccepted: boolean;
       permissionType: PermissionType;
     };
