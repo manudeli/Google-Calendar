@@ -1,13 +1,27 @@
-import Image from 'next/image';
+import { css } from '@emotion/react';
 
 interface Props {
   imageSrc: string;
+  size?: number;
 }
 
-export const ProfileImage = ({ imageSrc }: Props) => {
+export const ProfileImage = ({ imageSrc, size = 50 }: Props) => {
   return (
-    <div>
-      <img src={imageSrc} />
+    <div
+      css={css`
+        display: inline-flex;
+        border-radius: 50%;
+        overflow: hidden;
+      `}
+    >
+      <img
+        css={css`
+          width: ${size}px;
+          height: ${size}px;
+          object-fit: cover;
+        `}
+        src={imageSrc}
+      />
     </div>
   );
 };
