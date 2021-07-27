@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { ComposeButtonModal } from './ComposeButtonModal';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { css } from '@emotion/react';
 

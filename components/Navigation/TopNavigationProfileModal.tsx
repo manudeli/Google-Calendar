@@ -1,11 +1,12 @@
 import router from 'next/router';
 import React from 'react';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import LoginList from '../LoginList/LoginList';
 import ProfileImage from '../UI/ProfileImage';
 import Button from '../UI/Button';
 import { css } from '@emotion/react';
 import theme from '../../styles/theme';
+import { logout } from '../../features/user/slice';
 
 interface Props {
   closeHandle;
@@ -13,9 +14,11 @@ interface Props {
 
 export const TopNavigationProfileModal = ({ closeHandle }: Props) => {
   const currentUserProfile = useAppSelector((state) => state.user.profile);
+  const dispatch = useAppDispatch();
 
   const clickSignOutHandle = () => {
     closeHandle();
+    dispatch(logout());
     router.replace('/');
   };
 
