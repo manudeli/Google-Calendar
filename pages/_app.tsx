@@ -7,20 +7,30 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../styles/theme';
 import GlobalStyle from '../styles/global';
+import NavigationLayout from '../components/NavigationLayout';
+import Head from 'next/head';
 // components
-import { Layout } from '../components/layout';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      </PersistGate>
-    </Provider>
+    <>
+      <Head>
+        <title>Google Calendar {`${''}`}</title>
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        ></link>
+      </Head>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <NavigationLayout>
+              <Component {...pageProps} />
+            </NavigationLayout>
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
+    </>
   );
 }

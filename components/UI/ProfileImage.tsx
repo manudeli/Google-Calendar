@@ -5,7 +5,7 @@ interface Props {
   size?: number;
 }
 
-export const ProfileImage = ({ imageSrc, size = 50 }: Props) => {
+const ProfileImage = ({ imageSrc, size = 50 }: Props) => {
   return (
     <div
       css={css`
@@ -25,3 +25,4 @@ export const ProfileImage = ({ imageSrc, size = 50 }: Props) => {
     </div>
   );
 };
+export default ProfileImage;

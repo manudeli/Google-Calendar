@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import theme from '../../styles/theme';
-import { ProfileImage } from '../UI/ProfileImage';
+import ProfileImage from '../UI/ProfileImage';
 
 function LoginListItem({ item, onClick }) {
   return (
