@@ -7,6 +7,18 @@ export const size = {
 };
 
 const theme = {
+  rootSize: {
+    large: '16px',
+    medium: '16px',
+    small: '16px',
+  },
+
+  radiusSize: {
+    large: '13px',
+    medium: '10px',
+    small: '7px',
+  },
+
   color: {
     red: {
       '50': '#ffebee',
