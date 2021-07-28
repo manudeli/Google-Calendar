@@ -1,3 +1,6 @@
+import { css } from '@emotion/react';
+import theme from '../../styles/theme';
+
 interface ButtonProps {
   color?: 'primary' | 'secondary';
   onClick?;
@@ -18,10 +21,31 @@ function Button({
   return (
     <button
       onClick={onClick}
+      css={css`
+        cursor: pointer;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 1.6rem;
+        border-radius: ${theme.radiusSize.small};
+        transition: all 0.2s;
+        opacity: 1;
+        width: ${fill ? '100%' : ''};
+        border: ${variant === 'outlined'
+          ? `1px solid ${theme.color.grey[200]}`
+          : ''};
+        background: ${color === 'primary' && variant !== 'outlined'
+          ? `${theme.color.blue[600]}`
+          : 'none'};
+
+        &:hover {
+          opacity: 0.8;
+        }
+      `}
       className={`
-     flex items-center justify-center px-8 py-2 rounded-md 
-     hover:opacity-80 transition-all 
-     ${fill ? 'w-full' : ''}
+    
+
      ${
        variant === 'outlined'
          ? 'border'
@@ -30,7 +54,14 @@ function Button({
     `}
     >
       {materialIcon && (
-        <span className="material-icons mr-4">{materialIcon}</span>
+        <span
+          css={css`
+            margin-right: 0.2rem;
+          `}
+          className="material-icons"
+        >
+          {materialIcon}
+        </span>
       )}
       {children}
     </button>

@@ -74,7 +74,14 @@ export const TopNavigationProfileModal = ({ closeHandle }: Props) => {
       >
         Sign out
       </Button>
-      <div>Privacy Policy · Terms of Service</div>
+      <div
+        css={css`
+          margin: 0.8rem 0 0.2rem 0;
+          font-size: 0.8rem;
+        `}
+      >
+        Privacy Policy · Terms of Service
+      </div>
     </div>
   );
 };
