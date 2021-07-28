@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
+import Loader from './Loader';
 
 interface LoadingProps {
   isLoading?: boolean;
 }
 
-function Loading({ isLoading = true }: LoadingProps) {
+function LoadingOverlay({ isLoading = true }: LoadingProps) {
   return (
     <LoadingContainer isLoading={isLoading}>
       <Loader />
@@ -28,18 +28,4 @@ const LoadingContainer = styled.div<LoadingProps>`
   display: ${(props) => (props.isLoading ? 'flex' : 'none')};
 `;
 
-const spin = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-`;
-
-const Loader = styled.div`
-  border: ${({ theme }) => '5px solid ' + theme.color.bluegrey[600]};
-  border-top: 5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  animation: ${spin} 1.5s linear infinite;
-`;
-
-export default Loading;
+export default LoadingOverlay;

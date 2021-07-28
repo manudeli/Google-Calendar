@@ -3,7 +3,7 @@ import Head from 'next/head';
 import router from 'next/router';
 import GoogleLogo from '../components/GoogleLogo';
 import LoginList from '../components/LoginList/LoginList';
-import Loading from '../components/UI/Loading';
+import LoadingOverlay from '../components/UI/Loading/LoadingOverlay';
 import { useAppSelector } from '../store/hooks';
 import theme from '../styles/theme';
 
@@ -12,7 +12,7 @@ export default function LoginPage() {
 
   if (uid) {
     router.replace('/calendar');
-    return <Loading />;
+    return <LoadingOverlay />;
   }
 
   return (
