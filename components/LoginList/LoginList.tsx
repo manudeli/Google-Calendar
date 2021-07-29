@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 import { getAllUserProfiles, login } from '../../features/user/slice';
 import { css } from '@emotion/react';
+import { clearCalendar } from '../../features/calendar/slice';
 
 interface LoginListProps {
   hideLoggedInUser?: boolean;
@@ -21,6 +22,7 @@ function LoginList({ hideLoggedInUser = false }: LoginListProps) {
   }, []);
 
   const clickUserProfile = (userProfile) => {
+    dispatch(clearCalendar());
     dispatch(login(userProfile));
     router.replace('/calendar');
   };
