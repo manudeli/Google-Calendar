@@ -16,7 +16,7 @@ const theme = {
   radiusSize: {
     large: '13px',
     medium: '10px',
-    small: '7px',
+    small: '4px',
   },
 
   color: {

@@ -8,6 +8,7 @@ interface ButtonProps {
   children;
   variant?: 'default' | 'outlined' | 'rounded';
   fill?;
+  shadow?;
 }
 
 function Button({
@@ -17,6 +18,7 @@ function Button({
   children,
   variant,
   fill,
+  shadow,
 }: ButtonProps) {
   return (
     <button
@@ -41,7 +43,7 @@ function Button({
         background: ${color === 'primary' && variant !== 'outlined'
           ? `${theme.color.blue[600]}`
           : 'none'};
-        box-shadow: 0 3px 6px -1px ${theme.color.grey[500]};
+        box-shadow: ${shadow ? `0 3px 6px -1px ${theme.color.grey[500]}` : ''};
 
         &:hover {
           opacity: 0.8;

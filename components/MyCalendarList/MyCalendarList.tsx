@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
-import React from 'react';
+import router from 'next/router';
+import React, { useState } from 'react';
 import { CalendarProps } from '../../models/calendars';
 import { useAppSelector } from '../../store/hooks';
 import theme from '../../styles/theme';
+import IconButton from '../UI/IconButton';
 import Loader from '../UI/Loading/Loader';
 import MyCalendarListItem from './MyCalendarListItem';
 
@@ -16,34 +18,69 @@ const MyCalendarList = ({ title, calendars }: Props) => {
     (state) => state.user.profile.calendars
   );
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div>
+    <div
+      css={css`
+        min-width: 240px;
+      `}
+    >
       <div
         css={css`
+          padding: 0 16px;
           display: flex;
           text-align: left;
           align-items: center;
           justify-content: space-between;
+          border-radius: ${theme.radiusSize.small};
+          height: 32px;
+          cursor: pointer;
+          transition: all 0.2s;
+          &:hover {
+            background: ${theme.color.grey[100]};
+          }
+          &:active {
+            background: ${theme.color.grey[400]};
+          }
         `}
+        onClick={() => setIsOpen((prev) => !prev)}
       >
         <div>{title}</div>
-        <span className="material-icons">expand_more</span>
-      </div>
-
-      <ul css={css``}>
-        {calendars.length === 0 && (
-          <>
-            <Loader />
-          </>
-        )}
-        {calendars.map((calendar) => (
-          <MyCalendarListItem
-            key={calendar.id}
-            calendar={calendar}
-            isDisplay={currentUserCalendars[calendar.id].isDisplay}
+        <div
+          css={css`
+            display: flex;
+            align-items: center;
+          `}
+        >
+          <IconButton
+            tooltip="Add other calendars"
+            icon="add"
+            onClick={() => router.replace(`/calendar/settings/createcalendar`)}
           />
-        ))}
-      </ul>
+          {isOpen ? (
+            <span className="material-icons">expand_less</span>
+          ) : (
+            <span className="material-icons">expand_more</span>
+          )}
+        </div>
+      </div>
+      {isOpen && (
+        <ul css={css``}>
+          {calendars.length === 0 && (
+            <>
+              <Loader />
+            </>
+          )}
+          {calendars.map((calendar) => (
+            <MyCalendarListItem
+              key={calendar.id}
+              calendar={calendar}
+              isDisplay={currentUserCalendars[calendar.id].isDisplay}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
