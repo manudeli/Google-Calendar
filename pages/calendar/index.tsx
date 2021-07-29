@@ -1,8 +1,8 @@
 import router from 'next/router';
 import React, { useEffect } from 'react';
-import { Calendar } from '../components/Calendar';
-import { getMyCalendars } from '../features/calendar/slice';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { Calendar } from '../../components/Calendar';
+import { clearCalendar, getMyCalendars } from '../../features/calendar/slice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 interface Props {}
 
@@ -12,7 +12,9 @@ const CalendarPage = (props: Props) => {
   if (!currentUserId) router.replace('/');
 
   const dispatch = useAppDispatch();
+
   useEffect(() => {
+    dispatch(clearCalendar());
     dispatch(getMyCalendars({ currentUserId }));
   }, []);
 

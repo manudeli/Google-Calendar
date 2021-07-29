@@ -38,6 +38,21 @@ export const userSlice = createSlice({
     login: (state, { payload }) => {
       state.profile = payload;
     },
+    getUserProfile: (
+      state,
+      { payload }: PayloadAction<{ currentUserId: string }>
+    ) => {
+      console.log('hi');
+
+      state.isLoading = true;
+    },
+    successGetUserProfile: (state, { payload }) => {
+      state.isLoading = false;
+
+      console.log(payload);
+
+      state.profile = payload;
+    },
 
     setIsDisplayCalendar: (
       state,
@@ -71,6 +86,8 @@ export const {
   successAllUserProfiles,
   logout,
   login,
+  getUserProfile,
+  successGetUserProfile,
 
   setIsDisplayCalendar,
   successIsDisplayCalendar,

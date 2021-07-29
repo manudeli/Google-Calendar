@@ -6,10 +6,13 @@ import {
   successAllUserProfiles,
   setIsDisplayCalendar,
   failureIsDisplayCalendar,
+  getUserProfile,
+  successGetUserProfile,
 } from './slice';
 
 export function* watchUsers() {
   yield takeLatest(getAllUserProfiles.type, getAllUserProfilesSaga);
+  yield takeLatest(getUserProfile.type, getUserProfileSaga);
   yield takeLatest(setIsDisplayCalendar.type, setIsDisplayCalendarSaga);
 }
 
@@ -31,13 +34,32 @@ function* getAllUserProfilesSaga() {
   }
 }
 
+function* getUserProfileSaga(action) {
+  const { currentUserId } = action.payload;
+  console.log(currentUserId);
+
+  try {
+    let updatedProfile = {};
+    yield call(() =>
+      db
+        .doc(`users/${currentUserId}`)
+        .get()
+        .then((doc) => {
+          updatedProfile = { id: doc.id, ...doc.data() };
+        })
+    );
+    console.log(updatedProfile);
+
+    yield put(successGetUserProfile(updatedProfile));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function* setIsDisplayCalendarSaga(action) {
   const { currentUserId, calendarId, newIsDisplay } = action.payload;
-  console.log(currentUserId, calendarId, newIsDisplay);
-  const updateData = {
-    calendars: {},
-  } as ProfileProps;
-  updateData.calendars[calendarId] = { isDisplay: newIsDisplay };
+  const updateData = {} as ProfileProps;
+  updateData[`calendars.${calendarId}`] = { isDisplay: newIsDisplay };
 
   try {
     yield call(() =>

@@ -20,7 +20,7 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  // blacklist: ['counter'],
+  blacklist: ['calendar'],
 };
 
 const rootReducer = combineReducers({

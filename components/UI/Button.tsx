@@ -40,8 +40,11 @@ function Button({
         border: ${variant === 'outlined'
           ? `1px solid ${theme.color.grey[200]}`
           : ''};
+        color: ${color === 'primary' && variant !== 'outlined'
+          ? 'white'
+          : 'none'};
         background: ${color === 'primary' && variant !== 'outlined'
-          ? `${theme.color.blue[600]}`
+          ? `${theme.color.blue[700]}`
           : 'none'};
         box-shadow: ${shadow ? `0 3px 6px -1px ${theme.color.grey[500]}` : ''};
 
@@ -49,15 +52,6 @@ function Button({
           opacity: 0.8;
         }
       `}
-      className={`
-    
-
-     ${
-       variant === 'outlined'
-         ? 'border'
-         : `${color === 'primary' ? 'bg-blue-600' : ''} text-white`
-     }
-    `}
     >
       {materialIcon && (
         <span

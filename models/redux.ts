@@ -9,6 +9,7 @@ export interface IUserState {
 }
 
 export interface ICalendarState {
+  isLoading: boolean;
   currentPeriod: { start: Date; end: Date };
   // fetch every calendars included access from calendarsDB
   calendars: CalendarProps[];

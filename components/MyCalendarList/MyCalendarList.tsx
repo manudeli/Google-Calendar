@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import router from 'next/router';
 import React, { useState } from 'react';
 import { CalendarProps } from '../../models/calendars';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import theme from '../../styles/theme';
 import IconButton from '../UI/IconButton';
 import Loader from '../UI/Loading/Loader';
@@ -17,8 +17,9 @@ const MyCalendarList = ({ title, calendars }: Props) => {
   const currentUserCalendars = useAppSelector(
     (state) => state.user.profile.calendars
   );
+  const isLoading = useAppSelector((state) => state.calendar.isLoading);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div
@@ -67,7 +68,7 @@ const MyCalendarList = ({ title, calendars }: Props) => {
       </div>
       {isOpen && (
         <ul css={css``}>
-          {calendars.length === 0 && (
+          {isLoading && (
             <>
               <Loader />
             </>

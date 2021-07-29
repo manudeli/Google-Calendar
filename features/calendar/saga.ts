@@ -1,10 +1,18 @@
+import router from 'next/router';
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { CalendarProps } from '../../models/calendars';
 import { db } from '../../utils/firebase';
-import { getMyCalendars, successMyCalendars } from './slice';
+import {
+  createCalendar,
+  failureCreateCalendar,
+  getMyCalendars,
+  successCreateCalendar,
+  successMyCalendars,
+} from './slice';
 
 export function* watchCalendars() {
   yield takeLatest(getMyCalendars.type, getMyCalendarsSaga);
+  yield takeLatest(createCalendar.type, createCalendarSaga);
 }
 
 // redux-saga
@@ -30,5 +38,35 @@ function* getMyCalendarsSaga(action) {
     yield put(successMyCalendars(newMyCalendars));
   } catch (error) {
     console.log(error);
+  }
+}
+
+function* createCalendarSaga(action) {
+  const { title, description, currentUserId } = action.payload;
+  const newAccessOfCalender = {};
+  newAccessOfCalender[currentUserId] = { isAccepted: true, permissionType: 3 };
+  const newCalendar = {
+    title,
+    description,
+    color: 1,
+    owner: currentUserId,
+    access: newAccessOfCalender,
+  };
+
+  try {
+    const ref = yield call(() => db.collection('calendars').add(newCalendar));
+    const newUpdate = {};
+    newUpdate[`calendars.${ref.id}`] = {
+      isDisplay: true,
+    };
+    yield call(() =>
+      db.collection('users').doc(currentUserId).update(newUpdate)
+    );
+    yield put(successCreateCalendar());
+    yield setTimeout(() => {
+      router.replace('/calendar');
+    }, 4000);
+  } catch (error) {
+    yield put(failureCreateCalendar());
   }
 }
