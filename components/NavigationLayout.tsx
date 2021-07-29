@@ -22,7 +22,6 @@ function NavigationLayout({ children }) {
           display: flex;
           flex: 1;
         `}
-        className="flex flex-1"
       >
         {isloggedIn && <LeftNavigation />}
         <div
@@ -30,9 +29,7 @@ function NavigationLayout({ children }) {
             flex: 1;
           `}
         >
-          <div className={`${isloggedIn ? 'mail-list' : ''}  overflow-y-auto`}>
-            {children}
-          </div>
+          <div>{children}</div>
         </div>
       </div>
     </div>

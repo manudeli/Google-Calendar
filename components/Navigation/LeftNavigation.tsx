@@ -4,25 +4,36 @@ import Image from 'next/image';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { css } from '@emotion/react';
+import Button from '../UI/Button';
+import MyCalendarList from '../MyCalendarList/MyCalendarList';
 
 function LeftNavigation() {
+  const myCalendars = useAppSelector((state) => state.calendar.calendars);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const dispatch = useAppDispatch();
 
   return (
     <div
       css={css`
         background: white;
+        padding-right: 16px;
       `}
     >
-      <button
-        onClick={() => {
-          setIsOpenModal(true);
-        }}
-        className="flex items-center justify-center gap-3 h-12 p-4 text-sm font-normal font-medium bg-white rounded-full shadow-md"
+      <div
+        css={css`
+          padding: 16px 8px;
+        `}
       >
-        <Image width={32} height={32} src="/assets/create.png" /> Create
-      </button>
+        <Button
+          variant="rounded"
+          onClick={() => {
+            setIsOpenModal(true);
+          }}
+        >
+          <Image width={32} height={32} src="/assets/create.png" /> Create
+        </Button>
+      </div>
+
+      <MyCalendarList title={'My calendars'} calendars={myCalendars} />
     </div>
   );
 }

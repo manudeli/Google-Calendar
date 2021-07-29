@@ -12,4 +12,6 @@ export interface ProfileProps {
   email: string;
   username: UserName;
   imageUrl: string;
+  order: number;
+  calendars: { [calendarId: string]: { isDisplay: boolean } };
 }

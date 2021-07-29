@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUserState } from '../../models/redux';
+import { CalendarId, UserId } from '../../models/types';
 import { ProfileProps } from './../../models/users';
 
 // redux-toolkit
@@ -11,6 +12,8 @@ const initialState: IUserState = {
     email: '',
     username: '',
     imageUrl: '',
+    calendars: {},
+    order: 0,
   },
 };
 
@@ -35,10 +38,43 @@ export const userSlice = createSlice({
     login: (state, { payload }) => {
       state.profile = payload;
     },
+
+    setIsDisplayCalendar: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        calendarId: CalendarId;
+        currentUserId: UserId;
+        newIsDisplay: boolean;
+      }>
+    ) => {
+      state.profile.calendars[payload.calendarId].isDisplay =
+        !state.profile.calendars[payload.calendarId].isDisplay;
+    },
+    successIsDisplayCalendar: (state, { payload }) => {},
+    failureIsDisplayCalendar: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{ calendarId: CalendarId; newIsDisplay: boolean }>
+    ) => {
+      // 실패시 이미 바꿨던 isDisplay 원상태로 복귀
+      state.profile.calendars[payload.calendarId].isDisplay =
+        !payload.newIsDisplay;
+    },
   },
 });
 
-export const { getAllUserProfiles, successAllUserProfiles, logout, login } =
-  userSlice.actions;
+export const {
+  getAllUserProfiles,
+  successAllUserProfiles,
+  logout,
+  login,
+
+  setIsDisplayCalendar,
+  successIsDisplayCalendar,
+  failureIsDisplayCalendar,
+} = userSlice.actions;
 
 export default userSlice.reducer;

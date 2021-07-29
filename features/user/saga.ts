@@ -1,10 +1,16 @@
 import { ProfileProps } from './../../models/users';
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { db } from '../../utils/firebase';
-import { getAllUserProfiles, login, successAllUserProfiles } from './slice';
+import {
+  getAllUserProfiles,
+  successAllUserProfiles,
+  setIsDisplayCalendar,
+  failureIsDisplayCalendar,
+} from './slice';
 
 export function* watchUsers() {
   yield takeLatest(getAllUserProfiles.type, getAllUserProfilesSaga);
+  yield takeLatest(setIsDisplayCalendar.type, setIsDisplayCalendarSaga);
 }
 
 // redux-saga
@@ -22,5 +28,22 @@ function* getAllUserProfilesSaga() {
     yield put(successAllUserProfiles(newAllUserProfiles));
   } catch (error) {
     console.log(error);
+  }
+}
+
+function* setIsDisplayCalendarSaga(action) {
+  const { currentUserId, calendarId, newIsDisplay } = action.payload;
+  console.log(currentUserId, calendarId, newIsDisplay);
+  const updateData = {
+    calendars: {},
+  } as ProfileProps;
+  updateData.calendars[calendarId] = { isDisplay: newIsDisplay };
+
+  try {
+    yield call(() =>
+      db.collection('users').doc(`${currentUserId}`).update(updateData)
+    );
+  } catch (error) {
+    yield put(failureIsDisplayCalendar({ calendarId, newIsDisplay }));
   }
 }

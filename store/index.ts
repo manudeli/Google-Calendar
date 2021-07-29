@@ -11,7 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
-import { rootSaga, userReducer } from '../features';
+import { rootSaga, userReducer, calendarReducer } from '../features';
 import createSagaMiddleware from 'redux-saga';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -25,6 +25,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userReducer,
+  calendar: calendarReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -37,9 +38,8 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    })
-      .concat(sagaMiddleware)
-      .concat(logger),
+    }).concat(sagaMiddleware),
+  // .concat(logger),
 });
 
 // store가 생성이 된 다음에 아래 코드를 실행해야합니다.

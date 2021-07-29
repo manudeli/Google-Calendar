@@ -6,7 +6,7 @@ interface ButtonProps {
   onClick?;
   materialIcon?;
   children;
-  variant?: 'default' | 'outlined';
+  variant?: 'default' | 'outlined' | 'rounded';
   fill?;
 }
 
@@ -27,8 +27,11 @@ function Button({
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0.8rem 1.6rem;
-        border-radius: ${theme.radiusSize.small};
+        padding: 0.4rem 0.8rem;
+        gap: 0.8rem;
+        border-radius: ${variant === 'rounded'
+          ? '999px'
+          : theme.radiusSize.small};
         transition: all 0.2s;
         opacity: 1;
         width: ${fill ? '100%' : ''};
@@ -38,6 +41,7 @@ function Button({
         background: ${color === 'primary' && variant !== 'outlined'
           ? `${theme.color.blue[600]}`
           : 'none'};
+        box-shadow: 0 3px 6px -1px ${theme.color.grey[500]};
 
         &:hover {
           opacity: 0.8;

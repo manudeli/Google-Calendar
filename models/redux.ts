@@ -1,5 +1,5 @@
 import { CalendarProps } from './calendars';
-import { EventId, ViewType } from './types';
+import { Date, EventId, ViewType } from './types';
 import { ProfileProps } from './users';
 
 export interface IUserState {
@@ -13,6 +13,6 @@ export interface ICalendarState {
   // fetch every calendars included access from calendarsDB
   calendars: CalendarProps[];
   // fetch every invitedEvents included access from invitation
-  invitedEvents: { id: EventId; isDisplay: boolean }[];
+  // invitedEvents: { id: EventId; isDisplay: boolean }[];
   viewType: ViewType;
 }
