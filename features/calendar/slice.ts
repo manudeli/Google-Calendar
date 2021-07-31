@@ -5,6 +5,7 @@ import { UserId, ViewType } from '../../models/types';
 
 const initialState: ICalendarState = {
   isLoading: false,
+  isOpenLeftNav: true,
   currentPeriod: { start: 0, end: 0 },
   calendars: [],
   viewType: ViewType.month,
@@ -15,11 +16,16 @@ export const calendarSlice = createSlice({
   initialState,
   reducers: {
     clearCalendar: (state) => {
+      state.isOpenLeftNav = initialState.isOpenLeftNav;
       state.isLoading = initialState.isLoading;
       state.currentPeriod = initialState.currentPeriod;
       state.calendars = initialState.calendars;
       state.viewType = initialState.viewType;
     },
+    setIsOpenLeftNav: (state) => {
+      state.isOpenLeftNav = !state.isOpenLeftNav;
+    },
+
     getMyCalendars: (
       state,
       { payload }: PayloadAction<{ currentUserId: UserId }>
@@ -58,6 +64,7 @@ export const calendarSlice = createSlice({
 
 export const {
   clearCalendar,
+  setIsOpenLeftNav,
   getMyCalendars,
   successMyCalendars,
 

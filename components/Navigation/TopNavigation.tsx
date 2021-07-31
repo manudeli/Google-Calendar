@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import LoginList from '../LoginList/LoginList';
 import ProfileImage from '../UI/ProfileImage';
 import Button from '../UI/Button';
@@ -9,12 +9,13 @@ import IconButton from '../UI/IconButton';
 import { TopNavigationProfileModal } from './TopNavigationProfileModal';
 import { css } from '@emotion/react';
 import theme from '../../styles/theme';
+import { setIsOpenLeftNav } from '../../features/calendar/slice';
 
 function TopNavigation() {
   const userProfile = useAppSelector((state) => state.user.profile);
 
   const [openProfile, setOpenProfile] = useState(false);
-
+  const dispatch = useAppDispatch();
   const profileRef = useRef(null);
 
   useEffect(() => {
@@ -48,7 +49,13 @@ function TopNavigation() {
           align-items: center;
         `}
       >
-        <IconButton icon="menu" tooltip="Main menu" />
+        <IconButton
+          icon="menu"
+          tooltip="Main menu"
+          onClick={() => {
+            dispatch(setIsOpenLeftNav());
+          }}
+        />
 
         <Link href="/calendar">
           <a

@@ -11,6 +11,7 @@ interface IconButtonProps {
   onClick?;
   color?: 'white' | 'black' | 'yellow';
   isChecked?;
+  size?;
 }
 
 function IconButton({
@@ -19,6 +20,7 @@ function IconButton({
   tooltipPlacement = 'bottom',
   onClick,
   color = 'black',
+  size = 40,
 }: IconButtonProps) {
   const clickButtonStopPropagation = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -39,8 +41,8 @@ function IconButton({
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 40px;
-          height: 40px;
+          width: ${size}px;
+          height: ${size}px;
           border-radius: 50%;
           transition: all 0.2s;
           cursor: pointer;

@@ -8,13 +8,17 @@ import theme from '../../styles/theme';
 
 function LeftNavigation() {
   const myCalendars = useAppSelector((state) => state.calendar.calendars);
+  const isOpenLeftNav = useAppSelector((state) => state.calendar.isOpenLeftNav);
 
   return (
     <div
       css={css`
+        width: ${isOpenLeftNav ? 256 : 0}px;
+        padding-right: ${isOpenLeftNav ? 16 : 0}px;
         background: white;
-        padding-right: 16px;
         border-right: 1px solid ${theme.color.grey[200]};
+        transition: all 0.2s;
+        overflow: hidden;
       `}
     >
       <div

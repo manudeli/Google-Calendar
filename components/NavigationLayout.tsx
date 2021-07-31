@@ -3,9 +3,11 @@ import TopNavigation from './Navigation/TopNavigation';
 import { useAppSelector } from '../store/hooks';
 import { css } from '@emotion/react';
 import theme from '../styles/theme';
+import router from 'next/router';
 
 function NavigationLayout({ children }) {
   const isloggedIn = useAppSelector((state) => state.user.profile.id);
+  const isCalendarPage = router.pathname === '/calendar';
   console.log(isloggedIn);
 
   return (
@@ -23,7 +25,7 @@ function NavigationLayout({ children }) {
           flex: 1;
         `}
       >
-        {isloggedIn && <LeftNavigation />}
+        {isloggedIn && isCalendarPage && <LeftNavigation />}
         <div
           css={css`
             flex: 1;

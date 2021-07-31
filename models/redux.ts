@@ -9,6 +9,7 @@ export interface IUserState {
 }
 
 export interface ICalendarState {
+  isOpenLeftNav: boolean;
   isLoading: boolean;
   currentPeriod: { start: Date; end: Date };
   // fetch every calendars included access from calendarsDB
