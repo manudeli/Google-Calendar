@@ -20,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
         ></link>
+        <link rel="shortcut icon" href="/assets/logo_google_calendar.png" />
       </Head>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
